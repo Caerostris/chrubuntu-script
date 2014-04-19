@@ -221,7 +221,12 @@ then
 fi
 mount -t ext4 ${target_rootfs} /tmp/urfs
 
-tar_file="http://cdimage.ubuntu.com/ubuntu-core/releases/$ubuntu_version/release/ubuntu-core-$ubuntu_version-core-$ubuntu_arch.tar.gz"
+ubuntu_version_file="$ubuntu_version"
+if [ "$ubuntu_version" = "12.04" ]
+then
+  ubuntu_version_file="12.04.4"
+fi
+tar_file="http://cdimage.ubuntu.com/ubuntu-core/releases/$ubuntu_version/release/ubuntu-core-$ubuntu_version_file-core-$ubuntu_arch.tar.gz"
 if [ $ubuntu_version = "dev" ]
 then
   ubuntu_codename=`wget --quiet -O - http://changelogs.ubuntu.com/meta-release-development | grep "^Dist: " | tail -1 | sed -r 's/^Dist: (.*)$/\1/'`
